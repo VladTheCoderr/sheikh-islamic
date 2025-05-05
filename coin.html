@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>شیخ الاسلامی Clicker</title>
+  <link rel="stylesheet" href="coin.css" />
+</head>
+<body>
+  <!-- Login Section -->
+  <div class="container" id="login-container">
+    <h1>🔐 ورود با تلگرام</h1>
+    <script async src="https://telegram.org/js/telegram-widget.js?22"
+      data-telegram-login="sheikhalislamibot"
+      data-size="large"
+      data-userpic="true"
+      data-radius="10"
+      data-request-access="write"
+      data-on-auth="onTelegramAuth">
+    </script>
+  </div>
+
+  <!-- Game Section -->
+  <div class="container" id="game-container" style="display: none;">
+    <h1>🕌 کلیکر شیخ الاسلامی</h1>
+    <p id="telegram-user"></p>
+    <p id="coin-count">0 شیخ الاسلامی</p>
+    <img src="شیخ الاسلامی.png" id="click-target" alt="Coin" />
+
+    <!-- Upgrade Shop -->
+    <div id="shop">
+      <h2>🛍️ ارتقاءها</h2>
+      <div class="upgrade" onclick="buyUpgrade('tasbih')">
+        تسبیح طلایی - 50 🪙 (+1 per click)
+      </div>
+      <div class="upgrade" onclick="buyUpgrade('amameh')">
+        عمامه برکت‌زا - 200 🪙 (+3 per click)
+      </div>
+      <div class="upgrade" onclick="buyUpgrade('aba')">
+        عبا‌ی انرژی‌زا - 500 🪙 (+10 per click)
+      </div>
+      <div class="upgrade" onclick="buyUpgrade('fatwa')">
+        فتوا تولید انبوه - 1000 🪙 (+1/sec)
+      </div>
+    </div>
+  </div>
+
+  <script src="coin.js"></script>
+</body>
+</html>
