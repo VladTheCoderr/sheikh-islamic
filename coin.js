@@ -14,8 +14,11 @@ document.getElementById("click-target")?.addEventListener("click", () => {
 
 // Telegram login
 function onTelegramAuth(user) {
+  // Store user info in local storage
   localStorage.setItem("telegramUser", JSON.stringify(user));
-  showGame(user);  // After successful login, call this function to show the game
+
+  // Immediately show game content and hide the login screen
+  showGame(user); 
 }
 
 function showGame(user) {
