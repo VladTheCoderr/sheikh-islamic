@@ -1,136 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Settings</title>
-  <style>
-    /* Reset default margin and padding */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      color: #333;
-    }
-
-    .container {
-      width: 90%;
-      max-width: 600px;
-      margin: 50px auto;
-      padding: 20px;
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    h1 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    label {
-      font-size: 16px;
-      display: block;
-      margin-bottom: 8px;
-    }
-
-    input {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 16px;
-    }
-
-    button {
-      width: 100%;
-      padding: 10px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #45a049;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    #adminContent {
-      margin-top: 20px;
-    }
-
-    ul {
-      list-style-type: none;
-      padding-left: 0;
-    }
-
-    li {
-      background-color: #f9f9f9;
-      margin: 5px 0;
-      padding: 10px;
-      border-radius: 4px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>شیخ الاسلامی Clicker</title>
+  <link rel="stylesheet" href="coin.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>Admin Settings</h1>
-    <div class="form-group">
-      <label for="secretCode">Enter Secret Code:</label>
-      <input type="text" id="secretCode" placeholder="Enter code">
-      <button onclick="checkCode()">Submit</button>
-    </div>
+  <!-- Login Section -->
+  <div class="container" id="login-container">
+    <h1>🔐 ورود با تلگرام</h1>
+    <script async src="https://telegram.org/js/telegram-widget.js?22"
+      data-telegram-login="sheikhalislamibot"
+      data-size="large"
+      data-userpic="true"
+      data-radius="10"
+      data-request-access="write"
+      data-on-auth="onTelegramAuth">
+    </script>
+  </div>
 
-    <div id="adminContent" class="hidden">
-      <h2>Admin Dashboard</h2>
-      <p>Users who signed up:</p>
-      <ul id="userList"></ul>
+  <!-- Game Section -->
+  <div class="container" id="game-container" style="display: none;">
+    <h1>🕌 کلیکر شیخ الاسلامی</h1>
+    <p id="telegram-user"></p>
+    <p id="coin-count">0 شیخ الاسلامی</p>
+    <img src="شیخ الاسلامی.png" id="click-target" alt="Coin" />
+
+    <!-- Upgrade Shop -->
+    <div id="shop">
+      <h2>🛍️ ارتقاءها</h2>
+      <div class="upgrade" onclick="buyUpgrade('tasbih')">
+        تسبیح طلایی - 50 🪙 (+1 per click)
+      </div>
+      <div class="upgrade" onclick="buyUpgrade('amameh')">
+        عمامه برکت‌زا - 200 🪙 (+3 per click)
+      </div>
+      <div class="upgrade" onclick="buyUpgrade('aba')">
+        عبا‌ی انرژی‌زا - 500 🪙 (+10 per click)
+      </div>
+      <div class="upgrade" onclick="buyUpgrade('fatwa')">
+        فتوا تولید انبوه - 1000 🪙 (+1/sec)
+      </div>
     </div>
   </div>
 
-  <script>
-    const SECRET_CODE = 'شیخ کوچولو';
-    const users = JSON.parse(localStorage.getItem('users')) || [];
-
-    function checkCode() {
-      const enteredCode = document.getElementById('secretCode').value;
-      if (enteredCode === SECRET_CODE) {
-        showAdminPage();
-      } else {
-        alert('Incorrect code');
-      }
-    }
-
-    function showAdminPage() {
-      document.getElementById('adminContent').classList.remove('hidden');
-      const userListElement = document.getElementById('userList');
-      if (users.length === 0) {
-        userListElement.innerHTML = "<li>No users have signed up yet.</li>";
-      } else {
-        users.forEach(user => {
-          const userItem = document.createElement('li');
-          userItem.textContent = `ID: ${user.id} | Username: ${user.username}`;
-          userListElement.appendChild(userItem);
-        });
-      }
-    }
-  </script>
+  <script src="coin.js"></script>
 </body>
 </html>
