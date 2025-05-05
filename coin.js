@@ -15,7 +15,7 @@ document.getElementById("click-target")?.addEventListener("click", () => {
 // Telegram login
 function onTelegramAuth(user) {
   localStorage.setItem("telegramUser", JSON.stringify(user));
-  showGame(user);
+  showGame(user);  // After successful login, call this function to show the game
 }
 
 function showGame(user) {
@@ -23,9 +23,11 @@ function showGame(user) {
   document.getElementById("game-container").style.display = "block";
   document.getElementById("telegram-user").textContent = `👤 ${user.first_name} وارد شد`;
 
+  // Load previous saved coins and upgrades if any
   coins = parseInt(localStorage.getItem("sheikhCoins")) || 0;
   coinsPerClick = parseInt(localStorage.getItem("coinsPerClick")) || 1;
 
+  // Check if the auto-click upgrade was purchased
   const fatwaBought = localStorage.getItem("fatwaBought");
   if (fatwaBought === "true") startAutoClick();
 
@@ -68,6 +70,6 @@ function startAutoClick() {
 window.onload = function () {
   const savedUser = localStorage.getItem("telegramUser");
   if (savedUser) {
-    showGame(JSON.parse(savedUser));
+    showGame(JSON.parse(savedUser));  // Show the game if the user is already logged in
   }
 };
