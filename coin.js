@@ -1,75 +1,92 @@
-let coins = 0;
-let coinsPerClick = 1;
-let autoClickInterval;
-
-function updateCoins() {
-  document.getElementById("coin-count").textContent = `${coins} شیخ الاسلامی`;
-  localStorage.setItem("sheikhCoins", coins);
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-document.getElementById("click-target")?.addEventListener("click", () => {
-  coins += coinsPerClick;
-  updateCoins();
-});
-
-// Telegram login
-function onTelegramAuth(user) {
-  localStorage.setItem("telegramUser", JSON.stringify(user));
-  showGame(user);  // After successful login, call this function to show the game
+body {
+  font-family: "Vazir", sans-serif;
+  background-color: #1f1f1f;
+  color: white;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
 }
 
-function showGame(user) {
-  document.getElementById("login-container").style.display = "none";
-  document.getElementById("game-container").style.display = "block";
-  document.getElementById("telegram-user").textContent = `👤 ${user.first_name} وارد شد`;
-
-  // Load previous saved coins and upgrades if any
-  coins = parseInt(localStorage.getItem("sheikhCoins")) || 0;
-  coinsPerClick = parseInt(localStorage.getItem("coinsPerClick")) || 1;
-
-  // Check if the auto-click upgrade was purchased
-  const fatwaBought = localStorage.getItem("fatwaBought");
-  if (fatwaBought === "true") startAutoClick();
-
-  updateCoins();
+.container {
+  max-width: 500px;
+  background-color: #333;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
 }
 
-// Handle Upgrades
-function buyUpgrade(type) {
-  if (type === "tasbih" && coins >= 50) {
-    coins -= 50;
-    coinsPerClick += 1;
-  } else if (type === "amameh" && coins >= 200) {
-    coins -= 200;
-    coinsPerClick += 3;
-  } else if (type === "aba" && coins >= 500) {
-    coins -= 500;
-    coinsPerClick += 10;
-  } else if (type === "fatwa" && coins >= 1000) {
-    coins -= 1000;
-    startAutoClick();
-    localStorage.setItem("fatwaBought", "true");
-  } else {
-    alert("سکه کافی نداری برادر!");
-    return;
-  }
-
-  updateCoins();
-  localStorage.setItem("coinsPerClick", coinsPerClick);
+h1 {
+  color: #fff;
+  font-size: 2rem;
+  margin-bottom: 20px;
 }
 
-function startAutoClick() {
-  if (autoClickInterval) return;
-  autoClickInterval = setInterval(() => {
-    coins += 1;
-    updateCoins();
-  }, 1000);
+#click-target {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: transform 0.2s ease;
+  border: 5px solid #fff;
 }
 
-// Restore game
-window.onload = function () {
-  const savedUser = localStorage.getItem("telegramUser");
-  if (savedUser) {
-    showGame(JSON.parse(savedUser));  // Show the game if the user is already logged in
-  }
-};
+#click-target:active {
+  transform: scale(0.95);
+}
+
+#coin-count {
+  font-size: 24px;
+  margin-top: 20px;
+  color: #fff;
+}
+
+#telegram-user {
+  font-size: 16px;
+  color: #ccc;
+  margin-top: 10px;
+}
+
+#shop {
+  margin-top: 30px;
+  text-align: right;
+  direction: rtl;
+}
+
+.upgrade {
+  background-color: #444;
+  padding: 10px 15px;
+  border: 1px solid #666;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.upgrade:hover {
+  background-color: #555;
+}
+
+/* Style for login section */
+#login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#login-container h1 {
+  color: #fff;
+}
